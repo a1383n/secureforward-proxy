@@ -8,6 +8,8 @@ import (
 )
 
 func main() {
+	go src.HandleHTTPConnection()
+
 	l, err := net.Listen("tcp", ":443")
 	if err != nil {
 		log.Fatal(err)
@@ -21,7 +23,7 @@ func main() {
 			log.Print(err)
 			continue
 		}
-		fmt.Println("Connection accepted from ", conn.RemoteAddr())
+		log.Println("Connection accepted from ", conn.RemoteAddr())
 		go src.HandleConnection(conn)
 	}
 }

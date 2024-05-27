@@ -5,6 +5,9 @@ import (
 	"io"
 	"log"
 	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"sync"
 	"time"
 )
@@ -57,4 +60,29 @@ func HandleConnection(clientConn net.Conn) {
 	}()
 
 	wg.Wait()
+}
+
+func HandleHTTPConnection() {
+	proxy := &httputil.ReverseProxy{
+		Director: func(req *http.Request) {
+			target, err := url.Parse("http://" + req.Host)
+			if err != nil {
+				log.Println("Error parsing target URL:", err)
+				return
+			}
+
+			// Update the request to point to the target URL
+			req.URL = target
+			req.Host = target.Host
+		},
+	}
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		proxy.ServeHTTP(w, r)
+	})
+
+	fmt.Println("Proxy server listening on port 80...")
+	if err := http.ListenAndServe(":80", nil); err != nil {
+		log.Fatal(err)
+	}
 }
