@@ -12,18 +12,19 @@ SecureForward is easy to use and can be configured with simple command-line opti
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/secureforward-proxy.git
+   git clone https://github.com/a1383n/secureforward-proxy.git
    ```
 
 2. Build the proxy:
    ```
    cd secureforward-proxy
-   make
+   go mod download
+   go build
    ```
 
 3. Run the proxy:
    ```
-   ./secureforward
+   ./secureforward-proxy
    ```
 
 ## Configuration
