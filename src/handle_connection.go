@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 	"sync"
 	"time"
 )
@@ -28,6 +29,17 @@ func HandleConnection(clientConn net.Conn) {
 
 	if err := clientConn.SetReadDeadline(time.Time{}); err != nil {
 		log.Print(err)
+		return
+	}
+
+	b, err := CheckDomainAndIp("http://192.168.1.192:8000/api", clientHello.ServerName, strings.Split(clientConn.RemoteAddr().String(), ":")[0])
+	if err != nil {
+		log.Println("Error checking domain:", err)
+		return
+	}
+
+	if !b {
+		log.Println("Access denied for domain:", clientHello.ServerName)
 		return
 	}
 
@@ -68,6 +80,17 @@ func HandleHTTPConnection() {
 			target, err := url.Parse("http://" + req.Host)
 			if err != nil {
 				log.Println("Error parsing target URL:", err)
+				return
+			}
+
+			b, err := CheckDomainAndIp("http://192.168.1.192:8000/api", req.Host, req.RemoteAddr)
+			if err != nil {
+				log.Println("Error checking domain:", err)
+				return
+			}
+
+			if !b {
+				log.Println("Access denied for domain:", req.Host)
 				return
 			}
 
