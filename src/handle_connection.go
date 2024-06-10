@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -32,7 +33,12 @@ func HandleConnection(clientConn net.Conn) {
 		return
 	}
 
-	b, err := CheckDomainAndIp("http://192.168.1.192:8000/api", clientHello.ServerName, strings.Split(clientConn.RemoteAddr().String(), ":")[0])
+	api_endpoint := os.Getenv("API_ENDPOINT")
+	if api_endpoint == "" {
+		api_endpoint = "http://app/api"
+	}
+
+	b, err := CheckDomainAndIp(api_endpoint, clientHello.ServerName, strings.Split(clientConn.RemoteAddr().String(), ":")[0])
 	if err != nil {
 		log.Println("Error checking domain:", err)
 		return
