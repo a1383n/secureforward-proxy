@@ -89,7 +89,12 @@ func HandleHTTPConnection() {
 				return
 			}
 
-			b, err := CheckDomainAndIp("http://192.168.1.192:8000/api", req.Host, req.RemoteAddr)
+			api_endpoint := os.Getenv("API_ENDPOINT")
+			if api_endpoint == "" {
+				api_endpoint = "http://app/api"
+			}
+			
+			b, err := CheckDomainAndIp(api_endpoint, req.Host, req.RemoteAddr)
 			if err != nil {
 				log.Println("Error checking domain:", err)
 				return
