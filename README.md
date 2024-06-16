@@ -2,6 +2,9 @@
 
 SecureForward is a minimal, lightweight and efficient SSL/TLS passthrough proxy designed for secure forwarding of encrypted traffic. It provides features such as IP control and SNI filtering, making it suitable for various networking environments.
 
+> [!CAUTION]
+> ### The responsibility for using this program lies with the user. In some countries, including Iran, using proxies to bypass internet censorship is illegal. Users must ensure their use of ScureProxy complies with all applicable laws.
+
 ## Features
 - SSL/TLS Passthrough: Securely forwards encrypted traffic without decrypting it.
 - IP Control: Allows control over which IP addresses can access the proxy.
