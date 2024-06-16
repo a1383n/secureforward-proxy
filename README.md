@@ -5,13 +5,13 @@ SecureForward is a minimal, lightweight and efficient SSL/TLS passthrough proxy 
 > [!CAUTION]
 > ### The responsibility for using this program lies with the user. In some countries, including Iran, using proxies to bypass internet censorship is illegal. Users must ensure their use of this program complies with all applicable laws.
 
+> [!NOTE]  
+> **SecureForward is part of a larger microservices architecture. For centralized management and administration, explore [SecureProxy](https://github.com/a1383n/secure-proxy), which provides an admin panel and central API for configuring and monitoring DNS and proxy servers.**
+
 ## Features
 - SSL/TLS Passthrough: Securely forwards encrypted traffic without decrypting it.
 - IP Control: Allows control over which IP addresses can access the proxy.
 - SNI Filtering: Filters traffic based on Server Name Indication (SNI) to route it to the appropriate destination.
-
-> [!NOTE]  
-> **SecureForward is part of a larger microservices architecture. For centralized management and administration, explore [SecureProxy](https://github.com/a1383n/secure-proxy), which provides an admin panel and central API for configuring and monitoring DNS and proxy servers.**
 
 ## Usage
 SecureForward is easy to use and can be configured with simple command-line options. To get started, follow these steps:
